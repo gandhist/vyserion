@@ -1,0 +1,276 @@
+/* code by webdevtrick ( https://webdevtrick.com ) */
+html, body{
+  min-height: 100%;
+}
+body {
+  font-family: 'Helvetica', arial, sans-serif;
+  background-color: #232741;
+  font-size: 15px;
+  }
+
+.bg {
+  background-image: url('img/bg.jpg') ;
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+}
+
+
+
+h3{
+  margin-top:5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #aaa;
+}
+
+
+.container{
+  position: relative;
+  max-width: 850px;
+  margin-left:auto;
+  margin-right:auto;
+  background-color: transparent;
+  overflow: hidden;
+  padding: 10px;
+  
+}
+.shit{
+  margin-top:23%;
+}
+
+
+.header{
+  border: 1px solid #008CCA;
+  padding: 50px;
+  margin: 5px;
+  background: url('img/textures.png');
+  background-color:#008CCA;
+}
+
+.notif{
+  border: none;
+  padding: 2px;
+  margin: 0px 10px;
+  background-color: none;
+  color: red;
+  text-shadow: 2px 2px 6px #424242;
+}
+
+/* Main */
+.left{
+  width: 250px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius:5px;
+  padding: 10px;
+  margin: 10px 5px;
+  float: left;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.middle{
+  width: 250px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius:5px;
+  padding: 10px;
+  margin: 10px 5px;
+  float: left;
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.right{
+  width: 250px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius:5px;
+  padding: 10px;
+  margin: 10px 5px;
+  float: left;
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.footer{
+  clear: both;
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+}
+.footer i {
+  color:#ffffff;
+  text-shadow: 2px 2px 6px #424242;
+}
+.footer a {
+  color:#ffffff;
+  text-shadow: 2px 2px 6px #424242;
+}
+
+textarea,input,select {
+  background-color: #FDFBFB;
+  border: 1px solid #008CCA;
+  border-radius:5px;
+  margin: 1px;
+  text-align:center;
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  width: 90%;
+  height: 30px;
+  
+}
+
+table.tpaketwifi {
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+table.tpaketwifi td {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+table.tpaketwifi tr:first-child{
+  background:#008CCA;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+table.tpaketwifi tr:nth-child(even){
+  background-color: #f1f1f1
+}
+
+.buttona {
+  background-color: #008CCA;
+  border: 1px solid #008CCA;
+  border-radius:5px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight:bold;
+  margin: 10px 1px;
+  height: 35px;
+  cursor: pointer;
+}
+.buttona:hover{
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  font-size: 80px;
+  letter-spacing: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgb(241,241,241);
+  margin: 0px;
+  padding: 0px;
+}
+
+
+
+.text {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%) !important;
+  -ms-transform: translateY(-50%) !important;
+  transform: translateY(-50%) !important;
+  z-index: 3;
+  display: block;
+}
+
+
+
+body {
+  margin: 0;
+}
+html, body{
+  min-height: 100%;
+}
+
+canvas {
+  display: block;
+  vertical-align: bottom;
+}
+
+
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #232741;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+
+/* layar 850px kebawah */
+@media screen and (max-width: 850px) {
+  
+.container {
+  width: 90%;
+  }
+.left {
+  width: 43%;
+  }
+.middle {
+  width: 43%;
+  float: right;
+  }
+  
+.right {
+  clear: both;
+  padding: 1% 4%;
+  height: auto;
+  width: auto;
+  float: none;
+  }
+.status {
+  width: 90%;
+  float: none;
+  }
+}
+
+
+/*  layar 600px kebawah */
+@media screen and (max-width: 600px) {
+  
+.container {
+  width: 90%;
+  }
+.footer{
+  text-align: center;
+  }
+.left {
+  height: auto;
+  width: auto;
+  float: none;
+  }
+  
+.middle {
+  height: auto;
+  width: auto;
+  float: none;
+  }
+  
+.right {
+  height: auto;
+  width: auto;
+  float: none;
+  }
+  
+.status {
+  width: 90%;
+  float: none;
+  }
+
+}

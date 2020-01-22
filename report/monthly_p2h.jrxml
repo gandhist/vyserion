@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_p2h" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="733489ad-2061-465f-ae21-09513258b601">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<parameter name="bulan" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tahun" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+  a.nomor_plat,
+  a.code_unit,
+  a.nap,
+  a.pic_code,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 1
+  ) D1,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 2
+  ) D2,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 3
+  ) D3,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 4
+  ) D4,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 5
+  ) D5,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 6
+  ) D6,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 7
+  ) D7,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 8
+  ) D8,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 9
+  ) D9,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 10
+  ) D10,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 11
+  ) D11,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 12
+  ) D12,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 13
+  ) D13,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 14
+  ) D14,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 15
+  ) D15,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 16
+  ) D16,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 17
+  ) D17,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 18
+  ) D18,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 19
+  ) D19,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 20
+  ) D20,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 21
+  ) D21,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 22
+  ) D22,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 23
+  ) D23,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 24
+  ) D24,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 25
+  ) D25,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 26
+  ) D26,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 27
+  ) D27,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 28
+  ) D28,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 29
+  ) D29,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 30
+  ) D30,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 31
+  ) D31,
+  (SELECT
+    CASE
+    WHEN kondisi = 0 THEN
+        CASE
+            WHEN stop_dua > 0 THEN stop_dua
+            WHEN stop_dua = 0 THEN stop_satu
+            WHEN stop_satu > 0 THEN stop_satu
+         END
+    WHEN kondisi = 1 THEN CONCAT("KM ERROR, ",remarks_satu)
+    WHEN kondisi = 2 THEN CONCAT("STANDBY, ",remarks_satu)
+    WHEN kondisi = 3 THEN   CONCAT("BREAKDOWN, ",remarks_satu)
+    WHEN kondisi = 4 THEN   CONCAT("TROUBLES, ",remarks_satu)
+    END AS last_km
+FROM vehicle_daily_op WHERE nap = a.nap AND YEAR(tanggal) = $P{tahun} AND MONTH(tanggal) = $P{bulan} AND DAY(tanggal) = 32
+  ) D32
+FROM
+  (SELECT id, nap, nomor_plat,code_unit, pic_code, bulan, tahun, last_service, next_service FROM service_setup WHERE id IN (SELECT id FROM
+(SELECT DISTINCT(MAX(nap)) nap, MAX(bulan) bulan, MAX(tahun) tahun, MAX(id) id FROM service_setup GROUP BY nap ORDER BY nap) a)
+) a
+  LEFT JOIN
+  vehicle_daily_op b
+  ON a.nap = b.nap
+-- WHERE a.tahun = $P{tahun} AND a.bulan = $P{bulan}
+  GROUP BY a.nap
+  ORDER BY a.code_unit]]>
+	</queryString>
+	<field name="nomor_plat" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="code_unit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nap" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pic_code" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="D1" class="java.lang.String"/>
+	<field name="D2" class="java.lang.String"/>
+	<field name="D3" class="java.lang.String"/>
+	<field name="D4" class="java.lang.String"/>
+	<field name="D5" class="java.lang.String"/>
+	<field name="D6" class="java.lang.String"/>
+	<field name="D7" class="java.lang.String"/>
+	<field name="D8" class="java.lang.String"/>
+	<field name="D9" class="java.lang.String"/>
+	<field name="D10" class="java.lang.String"/>
+	<field name="D11" class="java.lang.String"/>
+	<field name="D12" class="java.lang.String"/>
+	<field name="D13" class="java.lang.String"/>
+	<field name="D14" class="java.lang.String"/>
+	<field name="D15" class="java.lang.String"/>
+	<field name="D16" class="java.lang.String"/>
+	<field name="D17" class="java.lang.String"/>
+	<field name="D18" class="java.lang.String"/>
+	<field name="D19" class="java.lang.String"/>
+	<field name="D20" class="java.lang.String"/>
+	<field name="D21" class="java.lang.String"/>
+	<field name="D22" class="java.lang.String"/>
+	<field name="D23" class="java.lang.String"/>
+	<field name="D24" class="java.lang.String"/>
+	<field name="D25" class="java.lang.String"/>
+	<field name="D26" class="java.lang.String"/>
+	<field name="D27" class="java.lang.String"/>
+	<field name="D28" class="java.lang.String"/>
+	<field name="D29" class="java.lang.String"/>
+	<field name="D30" class="java.lang.String"/>
+	<field name="D31" class="java.lang.String"/>
+	<field name="D32" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="2" width="100" height="20" uuid="b53027ee-7221-4744-a815-fabcec6a49a2"/>
+				<text><![CDATA[nomor_plat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="2" width="100" height="20" uuid="54014f2a-080d-4ced-8d6e-d4162603c125"/>
+				<text><![CDATA[code_unit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="11" width="100" height="20" uuid="85f38425-af82-4e2f-aa9f-1e0b2a519193"/>
+				<textFieldExpression><![CDATA[$F{nomor_plat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="20" width="100" height="20" uuid="983701e4-1283-48ad-a605-7660b33637b6"/>
+				<textFieldExpression><![CDATA[$F{code_unit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

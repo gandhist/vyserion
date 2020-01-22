@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dakar_hse" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ae09e03-bf76-428c-ba56-e0cd6acc9b7c">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+  a.nik_pim,
+  a.empname,
+  a.address,
+  a.hire_date,
+  a.departement,
+  c.dept_desc,
+  a.position,
+  b.position_desc,
+  a.mobilephoneno,
+  a.no_identitas,
+  a.sim_type,
+  a.sim_number,
+  d.spesifikasi
+FROM
+  emp_master a
+  LEFT JOIN master_position b
+    ON a.position = b.id_position
+  LEFT JOIN master_dept c
+    ON a.departement = c.departement
+    LEFT JOIN hr_hist_status d
+    ON a.empcode = d.empcode
+WHERE a.is_deleted != 1
+  AND a.empcode NOT IN
+  (SELECT
+    empcode
+  FROM
+    hr_termination)
+  -- AND a.departement = 8
+ORDER BY c.dept_desc, a.empname]]>
+	</queryString>
+	<field name="nik_pim" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="empname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hire_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dept_desc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="position_desc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobilephoneno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_identitas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sim_type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sim_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="spesifikasi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="dept_desc">
+		<groupExpression><![CDATA[$F{dept_desc}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="95" splitType="Stretch">
+			<image>
+				<reportElement x="34" y="16" width="48" height="66" uuid="facdfaa9-c007-48cc-bc0b-07fa3f2f2ebc"/>
+				<imageExpression><![CDATA["C:\\xampp\\htdocs\\hris\\report\\company.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="105" y="16" width="447" height="55" uuid="96c64a11-b083-473c-9d3d-6ec74bb83c4c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="24"/>
+				</textElement>
+				<text><![CDATA[Daftar Karyawan PT PIM]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="94" width="555" height="1" uuid="d094a452-ed6d-4cf4-9650-3e216edbdd76"/>
+			</line>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="452" y="74" width="100" height="20" uuid="890e17b2-5ff5-4ed3-a7e1-2734b597792f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="19" height="20" uuid="d8f499b7-3807-493b-81ea-f43c77a0eba5"/>
+				<text><![CDATA[NO	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="41" width="100" height="20" uuid="95ee871a-7736-4557-91e0-420dd58da5bb"/>
+				<text><![CDATA[nik_pim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="41" width="100" height="20" uuid="53998b91-77c9-4a61-b9c8-a82602c482f8"/>
+				<text><![CDATA[empname]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="19" height="20" uuid="bc2ad2eb-90b0-4022-8c9a-d7490deab16a"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="0" width="100" height="20" uuid="de5733b1-8e85-4f79-9e8e-db912e6e40ba"/>
+				<textFieldExpression><![CDATA[$F{nik_pim}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="0" width="100" height="20" uuid="e9cf6cde-f4d7-4a3e-8777-85f339a17715"/>
+				<textFieldExpression><![CDATA[$F{empname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="34" width="80" height="20" uuid="03cf0e68-d40d-4feb-8a8a-cacf63d5f6b1"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="82" y="34" width="40" height="20" uuid="fb53b731-5124-490f-84ff-0839334ab8c9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

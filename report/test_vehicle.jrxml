@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test_vehicle" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="25421eb6-b216-4416-93aa-63fc5b1f15a0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+  a.nap,
+  CONCAT(LEFT(a.awal,CHARACTER_LENGTH(a.awal)-1), '.', SUBSTR(a.awal,-1)) AS awal,
+  CONCAT(LEFT(a.akhir,CHARACTER_LENGTH(a.akhir)-1), '.', SUBSTR(a.akhir,-1)) AS akhir,
+  a.total_km,
+  ROUND(CONCAT(LEFT(a.akhir,CHARACTER_LENGTH(a.akhir)-1), '.', SUBSTR(a.akhir,-1)) - CONCAT(LEFT(a.awal,CHARACTER_LENGTH(a.awal)-1), '.', SUBSTR(a.awal,-1)),1) AS total_km_baru,
+  b.total AS total_fuel,
+  COALESCE(FORMAT(b.total / ROUND(CONCAT(LEFT(a.akhir,CHARACTER_LENGTH(a.akhir)-1), '.', SUBSTR(a.akhir,-1)) - CONCAT(LEFT(a.awal,CHARACTER_LENGTH(a.awal)-1), '.', SUBSTR(a.awal,-1)),1),2),0) AS fuel_per_km
+FROM
+  (SELECT
+    a.nap,
+    MIN(a.hmkm) AS awal,
+    MAX(a.hmkm) AS akhir,
+    MAX(a.hmkm) - MIN(a.hmkm) AS total_km
+  FROM
+    vehicle_fuel_consumption a
+  WHERE DATE(a.tanggal_pengisian) BETWEEN "2018-08-01"
+    AND "2018-08-31"
+  GROUP BY a.nap) a
+  LEFT JOIN
+    (SELECT
+      a.nap,
+      SUM(a.qty) total
+    FROM
+      vehicle_fuel_consumption a
+      LEFT JOIN vehicle_master b
+        ON a.nap = b.nap
+    WHERE DATE(a.tanggal_pengisian) BETWEEN "2018-08-01"
+      AND "2018-08-31"
+    GROUP BY a.nap) b
+    ON a.nap = b.nap]]>
+	</queryString>
+	<field name="nap" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="awal" class="java.lang.String"/>
+	<field name="akhir" class="java.lang.String"/>
+	<field name="total_km" class="java.lang.Long"/>
+	<field name="total_km_baru" class="java.lang.Double"/>
+	<field name="total_fuel" class="java.lang.Double"/>
+	<field name="fuel_per_km" class="java.lang.String"/>
+	<group name="nap">
+		<groupExpression><![CDATA[$F{nap}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="ce8a951a-6afe-4652-a5a2-2d67ac8c3998"/>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<image>
+				<reportElement x="456" y="0" width="99" height="132" uuid="92c32b16-e9a2-4b76-9fa8-e92c782af7ec"/>
+				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="ab8ef2bc-a523-4223-8ead-d4d896910121"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="99e50671-52c4-45ac-bab4-b17476390a1f"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Laporan Fuel]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="157" y="66" width="249" height="29" uuid="826523a7-65ac-4177-8a74-02d4e115ed99"/>
+					<textElement>
+						<font size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Laporan Fuel Per Kilometer]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="0fb7f392-54db-4ccf-bd1b-6d896ad0e451"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="307" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="cee6f266-b059-465e-b4c8-f8a6969d9329"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="7" width="92" height="18" forecolor="#000000" uuid="fc345606-152a-42e9-baa7-9a605ad6deb7"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[awal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="92" y="7" width="92" height="18" forecolor="#000000" uuid="03073851-df81-4ec7-860b-8afa7be97ca4"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[akhir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="7" width="92" height="18" forecolor="#000000" uuid="97303e38-e3d7-48c7-93c7-92875dce6d30"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[total_km]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="7" width="92" height="18" forecolor="#000000" uuid="c82d79ef-d1b8-4d89-ba3b-7d32f6ce1357"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[total_km_baru]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="7" width="92" height="18" forecolor="#000000" uuid="090b2cd6-c11a-408a-88f7-a279d0245034"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[total_fuel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="7" width="92" height="18" forecolor="#000000" uuid="f6f2f8dc-93c8-4fec-8caf-6302c0c09a71"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[fuel_per_km]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="272d35bb-14c5-4922-9ae2-58ec39537ae0"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="92" height="18" uuid="6ca3f075-f990-47cc-bcb0-1b9812201549"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{awal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="92" y="0" width="92" height="18" uuid="687d8bc2-b67c-4c76-95d2-9aa85f675abe"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{akhir}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="184" y="0" width="92" height="18" uuid="82867c5c-f05f-409d-828d-83d6934628c3"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total_km}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="276" y="0" width="92" height="18" uuid="5513ec52-771c-4533-aafa-81816ac9eb8a"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total_km_baru}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="368" y="0" width="92" height="18" uuid="2b476ff6-19e1-49ab-993b-ed6725f5cd47"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total_fuel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="460" y="0" width="92" height="18" uuid="1b19900c-de0d-4b89-9598-82a261e95ed7"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fuel_per_km}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="a570c629-c520-4b1b-b0fa-731683efe40a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="04c2bd55-050f-4c7a-a612-4f2784472219"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="1e016d92-2f7a-4b7a-b3de-3e295db8a1cc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="b3e03a12-3619-4505-979a-2f7eafa5b45e"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="388f6d27-7349-4b75-95da-bf30955a5238"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

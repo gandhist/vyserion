@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <style type="text/css">
+     @page { margin: 180px 50px; }
+     .header { 
+      position: fixed; 
+      left: 0px; 
+      top: 0px; 
+      right: 0px; 
+      height: 50px; 
+      background-color: lightblue; 
+      text-align: center;
+       }
+     .footer { 
+      position: fixed; 
+      left: 0px; 
+      bottom: 40px; 
+      right: 0px; 
+      height: 20px; 
+      background-color: powderblue; }
+
+   </style>
+ </head>
+  <body>
+    <p>ini header</p>
+   <div class="header">
+     <h1>Widgets Express</h1>
+   </div>
+
+   <div class="footer">
+     <p>the first page</p>
+     <p style="page-break-before: always;">the second page</p>
+   </div>
+<p>   This is kludgey, but it works. You can basically fake the different headers by creating a normal header using fixed positioning and the special page 1 header using absolute positioning. If you set things up in the right order the page 1 header will be rendered on top of the standard header, obscuring it.
+ </p>
+ </body>
+ </html>

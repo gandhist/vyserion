@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test_param" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0e462fc-6b2d-4629-92dd-c9d354b288ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="start_date" class="java.lang.String"/>
+	<parameter name="end_date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+  a.nap,
+  CONCAT(LEFT(a.awal,CHARACTER_LENGTH(a.awal)-1), '.', SUBSTR(a.awal,-1)) AS awal,
+  CONCAT(LEFT(a.akhir,CHARACTER_LENGTH(a.akhir)-1), '.', SUBSTR(a.akhir,-1)) AS akhir,
+ -- a.total_km,
+  ROUND(CONCAT(LEFT(a.akhir,CHARACTER_LENGTH(a.akhir)-1), '.', SUBSTR(a.akhir,-1)) - CONCAT(LEFT(a.awal,CHARACTER_LENGTH(a.awal)-1), '.', SUBSTR(a.awal,-1)),1) AS total_km_baru,
+  b.total AS total_fuel,
+  COALESCE(FORMAT(b.total / ROUND(CONCAT(LEFT(a.akhir,CHARACTER_LENGTH(a.akhir)-1), '.', SUBSTR(a.akhir,-1)) - CONCAT(LEFT(a.awal,CHARACTER_LENGTH(a.awal)-1), '.', SUBSTR(a.awal,-1)),1),2),0) AS fuel_per_km
+FROM
+  (SELECT
+    a.nap,
+    MIN(a.hmkm) AS awal,
+    MAX(a.hmkm) AS akhir,
+    MAX(a.hmkm) - MIN(a.hmkm) AS total_km
+  FROM
+    vehicle_fuel_consumption a
+  WHERE DATE(a.tanggal_pengisian) BETWEEN $P{start_date}
+    AND $P{end_date}
+  GROUP BY a.nap) a
+  LEFT JOIN
+    (SELECT
+      a.nap,
+      SUM(a.qty) total
+    FROM
+      vehicle_fuel_consumption a
+      LEFT JOIN vehicle_master b
+        ON a.nap = b.nap
+    WHERE DATE(a.tanggal_pengisian) BETWEEN $P{start_date}
+      AND $P{end_date}
+    GROUP BY a.nap) b
+    ON a.nap = b.nap ]]>
+	</queryString>
+	<field name="nap" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="awal" class="java.lang.String"/>
+	<field name="akhir" class="java.lang.String"/>
+	<field name="total_km_baru" class="java.lang.Double"/>
+	<field name="total_fuel" class="java.lang.Double"/>
+	<field name="fuel_per_km" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="271" y="48" width="100" height="20" uuid="4d86553e-a872-4bc1-8a70-39f92fd5956c"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="185" y="15" width="100" height="20" uuid="9d6b7bc2-1f9e-465b-8546-0609dec74acd"/>
+				<textFieldExpression><![CDATA[$P{start_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="24" y="2" width="100" height="20" uuid="8162013c-0b8f-46a3-a279-b5a0dfeeee09"/>
+				<text><![CDATA[nap]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="24" y="8" width="100" height="20" uuid="19354b19-13cd-4eba-a548-d601f5ec22aa"/>
+				<textFieldExpression><![CDATA[$F{nap}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

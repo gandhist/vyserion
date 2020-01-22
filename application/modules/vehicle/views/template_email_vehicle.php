@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: auto;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+<title>Template Email Habis Kontrak</title>
+
+</head>
+<body>
+
+<h4>Dear Team General Affairs PT. Prima Indojaya Mandiri</h4>
+
+<p>Berikut ini adalah daftar Unit Kendaraan / Sarana yang habis masa berlaku surat menyuratnya dalam <b>2  Bulan kedepan</b></p>
+
+<table id="customers">
+<tr>
+    <td>No</td>
+    <td>No Plat</td>
+    <td>Code Unit</td>
+    <td>NAP</td>
+    <td>Dokumen</td>
+    <td>Masa Berlaku</td>
+    <td>Remarks</td>
+    <td>Due Date</td>
+    <td>Referensi SR</td>
+    <td>Referensi PPD</td>
+</tr>
+
+<?php 
+$no = 1;
+    foreach ($email as $key) {
+?>
+<tr>
+    <td><?php echo $no; ?></td>
+    <td><?php echo $key->nomor_plat; ?></td>
+    <td><?php echo $key->code_unit; ?></td>
+    <td><?php echo $key->nap; ?></td>
+    <td><?php echo $key->doc_type; ?></td>
+    <td><?php echo date_indonesia($key->valid_until); ?></td>
+    <td><?php echo $key->remarks; ?></td>
+    <td><?php echo $key->due_date." Hari Lagi"; ?></td>
+    <td><?php echo $key->no_ref_sr; ?></td>
+    <td><?php echo $key->no_ref_ppd; ?></td>
+</tr>
+<?php
+    $no++;
+/*$awal = $key->start_date;
+$ahir = $key->end_date;
+$diff = date_diff($awal, $ahir);
+echo $diff;
+*/
+
+}
+/*$date1=date_create("2013-03-15");
+$date2=date_create("2013-12-12");
+$diff=date_diff($date1,$date2);
+echo $diff->format("%R%a days");*/
+
+?>
+
+</table>
+<br><br><br><br>
+<b>Email Ini dikirim pada <?php echo date("d-m-Y H:i:s"); ?></b>
+<p>Note : </p>
+<i>Jika duedate nya minus (-) berarti Dokumen sudah expierd dan belum di closed dari system</i>
+<br>
+<i>Untuk dokumen yang sudah di proses, silahkan ubah status nya menjadi approve.</i>
+<br>
+<i>Email Ini Terkirim Otomatis, harap tidak untuk membalas email ini.</i>
+</body>
+</html>
